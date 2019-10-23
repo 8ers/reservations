@@ -1,25 +1,38 @@
+const path = require('path');
+
 module.exports = {
-    "devtool": 'inline-source-map',
-    "mode": "development",
-    "entry": "./client/src/index.js",
-    "output": {
-        "path": __dirname + 'client/dist',
-        "filename": "[name].[chunkhash:8].js"
-    },
-    "module": {
-        "rules": [
-            {
-                "enforce": "pre",
-                "test": /\.(js|jsx)$/,
-                "exclude": /node_modules/,
-                "use": "eslint-loader"
-            },
-            {
-                "test": /\.(js|jsx)$/,
-                "exclude": /node_modules/,
-                "loader": "babel-loader",
-                "query": { "presets": ["@babel/preset-env", "@babel/preset-react"] }
-            }
-        ]
-    }
-}
+  entry: path.resolve(__dirname, 'client/src', 'index.js'),
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'client','dist'),
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.css', '.scss'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?/, // m?js
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
+      {
+        test: /\.(css|less)$/,
+        use: [{ loader: 'style-loader' }, {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[sha1:hash:hex:4]',
+          }
+        }],
+      },
+    ],
+  },
+  mode: 'development', // change to production for optimized package
+};

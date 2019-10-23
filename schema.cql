@@ -5,8 +5,8 @@ USE airbnb;
 
 CREATE TYPE IF NOT EXISTS reservations(
     reservation_id INT,
-    start TEXT,
-    end TEXT,
+    start DATE,
+    end DATE,
     adults INT,
     children INT,
     infants INT
