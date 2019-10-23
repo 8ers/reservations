@@ -30,14 +30,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const stayId = Number(window.location.pathname.split('/')[2]) || 1;
+    const stayId = Number(window.location.pathname.split('/')[2]) || 5;
     this.setState({
       stayId,
     }, this.getData);
   }
 
   getData() {
-    axios.get(`/api/stays/${this.state.stayId}`)
+    axios.get(`http://localhost:8000/api/rooms/${this.state.stayId}`)
       .then((result) => {
         console.log(result.data.rows[0]);
         this.updateBookedDates(result.data.rows[0].reservations);
@@ -47,7 +47,7 @@ export default class App extends React.Component {
   }
 
   getBookingData() {
-    axios.get(`/api/stays/${this.state.stayId}/reservations`)
+    axios.get(`http://localhost:8000/api/rooms/${this.state.stayId}/reservations`)
       .then((result) => {
         this.updateBookedDates(result.data);
       })
@@ -63,12 +63,9 @@ export default class App extends React.Component {
   updateBookedDates(results) {
     let reservations = [];
     results.forEach((data) => {
-      console.log('hi');
       let nights = moment(data.end).diff(data.start, 'd');
-      console.log(nights);
       let startDate = moment(data.start, 'YYYY-MM-DD');
       for (let i = 0; i < nights; i += 1) {
-        console.log(i);
         reservations.push(startDate.clone().add(i, 'days'));
         console.log(reservations[reservations.length-1].toDate());
       }
