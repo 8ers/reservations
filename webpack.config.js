@@ -1,4 +1,32 @@
 const path = require('path');
+const BrotliPlugin = require('brotli-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+
+const prodPlugins = [
+  new CompressionPlugin({
+    filename: '[path].gz[query]',
+    algorithm: 'gzip',
+    test: /\.js$|\.css$|\.html$/,
+    threshold: 10240,
+    minRatio: 0.7
+    }),
+	new BrotliPlugin({
+		asset: '[path].br[query]',
+		test: /\.(js|css|html|svg)$/,
+		threshold: 10240,
+		minRatio: 0.8
+	}),
+	new UglifyJsPlugin({
+		cache: true,
+		parallel: true,
+		sourceMap: true
+	})
+];
+/**
+ * Merging plugins on the basis of env
+ */
+const pluginList = prodPlugins;
 
 module.exports = {
   entry: path.resolve(__dirname, 'client/src', 'index.js'),
@@ -34,5 +62,6 @@ module.exports = {
       },
     ],
   },
-  mode: 'development', // change to production for optimized package
+  mode: 'production', // change to production for optimized package
+  plugins: pluginList,
 };

@@ -3,13 +3,20 @@ var bodyParser = require('body-parser');
 var seed = require('../seed.js');
 var db = require('../database/index.js');
 var cors = require('cors');
+var expressStaticGzip = require('express-static-gzip');
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/', express.static(__dirname + '/../client/dist'));
-app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
+app.use('/', expressStaticGzip(__dirname + '/../client/dist', {
+  enableBrotli: true,
+  orderPreference: ['br', 'gz'],
+  setHeaders: function (res, path) {
+     res.setHeader("Cache-Control", "public, max-age=31536000");
+  }
+}));
+//app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
 
 app.get('/api/rooms/:id/reservations',(req,res) => {
   db.getReservationsData(req.params.id).then((data) => {
