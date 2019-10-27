@@ -37,7 +37,7 @@ export default class App extends React.Component {
   }
 
   getData() {
-    axios.get(`http://localhost:8000/api/rooms/${this.state.stayId}`)
+    axios.get(`http://ec2-54-241-140-81.us-west-1.compute.amazonaws.com:8000/api/rooms/${this.state.stayId}`)
       .then((result) => {
         console.log(result.data.rows[0]);
         this.updateBookedDates(result.data.rows[0].reservations);
@@ -47,7 +47,7 @@ export default class App extends React.Component {
   }
 
   getBookingData() {
-    axios.get(`http://localhost:8000/api/rooms/${this.state.stayId}/reservations`)
+    axios.get(`http://ec2-54-241-140-81.us-west-1.compute.amazonaws.com:8000/api/rooms/${this.state.stayId}/reservations`)
       .then((result) => {
         this.updateBookedDates(result.data);
       })
