@@ -7,12 +7,13 @@ client.connect(function (err) {
     console.log('error connecting to database');
     console.log(err);
   } else {
-    console.log('connected to db');
+    console.log('connect to db');
   }
 });
 
 const getStayData = function(id) {
   let query = `SELECT * FROM airbnb.stays WHERE stay_id = ${id};`;
+  console.log('query');
   return client.execute(query);
 }
 

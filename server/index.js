@@ -9,14 +9,8 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/', expressStaticGzip(__dirname + '/../client/dist', {
-  enableBrotli: true,
-  orderPreference: ['br', 'gz'],
-  setHeaders: function (res, path) {
-     res.setHeader("Cache-Control", "public, max-age=31536000");
-  }
-}));
-//app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
+app.use('/', express.static(__dirname + '/../client/dist'));
+app.use('/rooms/:id', express.static(__dirname + '/../client/dist'));
 
 app.get('/api/rooms/:id/reservations',(req,res) => {
   db.getReservationsData(req.params.id).then((data) => {
@@ -35,6 +29,6 @@ app.get('/data', (req, res) => {
   res.json(seed.seedData);
 });
 
-app.listen(8000, function () {
-  console.log('listening on port 8000');
+app.listen(4000, function () {
+  console.log('listening on port 4000');
 });

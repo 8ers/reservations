@@ -16,9 +16,9 @@ const Info = (props) => {
         <span className={css.per}>  per night</span>
       </div>
       <div className={css.secondLine}>
+         <span className={css.star}>&#9733;</span>
         <div className={css.ratings}>
-          <span className={css.star}>&#9733;</span>
-          {' '}
+          {ratings}
         </div>
         {' '}
         <div className={
@@ -40,8 +40,8 @@ Info.propTypes = {
 
 Info.defaultProps = {
   price: 0,
-  ratings: 0,
-  reviews: 0,
+  ratings: 4.56,
+  reviews: '(2,500 reviews)',
 };
 
 
