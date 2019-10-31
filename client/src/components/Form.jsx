@@ -28,7 +28,6 @@ export default class Form extends React.Component {
       selectedDate: 0,
       checkInClicked: false,
       checkOutClicked: false,
-      bookingSummaryExpand: false,
     };
 
     this.increaseGuest = this.increaseGuest.bind(this);
@@ -46,7 +45,6 @@ export default class Form extends React.Component {
     this.handleBothUnclicked = this.handleBothUnclicked.bind(this);
     this.makeBooking = this.makeBooking.bind(this);
     this.bookButtonClick = this.bookButtonClick.bind(this);
-    this.closeBookingPopup = this.closeBookingPopup.bind(this);
     this.formInitialize = this.formInitialize.bind(this);
   }
 
@@ -134,6 +132,7 @@ export default class Form extends React.Component {
   }
 
   increaseGuest(e) {
+    console.log('hi');
     e.preventDefault(e);
     this.setState({
       [e.target.id]: this.state[e.target.id] + 1,
@@ -214,12 +213,6 @@ export default class Form extends React.Component {
     }
   }
 
-  closeBookingPopup() {
-    this.setState({
-      bookingSummaryExpand: false,
-    });
-  }
-
   formInitialize() {
     this.setState({
       adults: 1,
@@ -239,7 +232,6 @@ export default class Form extends React.Component {
       selectedDate: 0,
       checkInClicked: false,
       checkOutClicked: false,
-      bookingSummaryExpand: false,
     });
   }
 
@@ -260,7 +252,6 @@ export default class Form extends React.Component {
       selectedNights,
       calculatedTax,
       totalCost,
-      bookingSummaryExpand,
     } = this.state;
 
     const {
