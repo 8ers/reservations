@@ -6,6 +6,7 @@ import Date from './Date.jsx';
 import Cost from './Cost.jsx';
 import Guest from './Guest.jsx';
 import css from '../../dist/App.css';
+import { isThursday } from 'date-fns';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -168,6 +169,7 @@ export default class Form extends React.Component {
   }
 
   updateTotalNights() {
+    this.props.changeDateClicked(2);
     const { checkOut, checkIn } = this.state;
     let nights = moment(checkOut, 'MM/DD/YY') - moment(checkIn, 'MM/DD/YY');
     nights = moment(nights).format('D');
@@ -177,6 +179,7 @@ export default class Form extends React.Component {
   }
 
   calendarInitialize(e) {
+    this.props.changeDateClicked(1);
     this.setState({
       checkIn: '',
       checkOut: '',
