@@ -24,11 +24,13 @@
   "dependencies": {
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
+    "brotli-webpack-plugin": "^1.1.0",
     "cassandra-driver": "^4.3.0",
     "cors": "^2.8.5",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.1",
     "express": "^4.17.0",
+    "express-static-gzip": "^2.0.5",
     "faker": "^4.1.0",
     "jest": "^24.8.0",
     "jquery": "^3.1.1",
@@ -38,7 +40,8 @@
     "pg": "^7.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
