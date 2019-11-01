@@ -4,6 +4,7 @@ import axios from 'axios';
 import Info from './components/Info.jsx';
 import Form from './components/Form.jsx';
 import css from '../dist/App.css';
+import { SSL_OP_TLS_ROLLBACK_BUG } from 'constants';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,12 +21,14 @@ export default class App extends React.Component {
       visits: 0,
       reservations: [],
       rendering: true,
+      dateSelected: false
     };
     this.getBookingData = this.getBookingData.bind(this);
     this.getData = this.getData.bind(this);
     this.updateRoomState = this.updateRoomState.bind(this);
     this.updateBookedDates = this.updateBookedDates.bind(this);
     this.handleRendering = this.handleRendering.bind(this);
+    this.changeDateClicked = this.changeDateClicked.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +36,18 @@ export default class App extends React.Component {
     this.setState({
       stayId,
     }, this.getData);
+  }
+
+  changeDateClicked(val) {
+    if(val === 1) {
+      this.setState({
+        dateSelected:false
+      },console.log('change'));
+    } else {
+      this.setState({
+        dateSelected:true
+      },console.log('change'));
+    }
   }
 
   getData() {
@@ -88,8 +103,20 @@ export default class App extends React.Component {
     const divStyle = {
       height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)',
     };
+    let lower;
+    if(this.state.dateSelected) {
+      lower =         <div className={css.image} style={{backgroundImage: 'url("https://airbnbicons.s3-us-west-1.amazonaws.com/diamond1.gif")'}}>
+      <div className={css.lower}>This is a rare find.</div>
+      <div className={css.lowerPrice}>This place is usually booked.</div>
+    </div>;
+    } else {
+      lower =         <div className={css.image} style={{backgroundImage: 'url("https://airbnbicons.s3-us-west-1.amazonaws.com/bulb1.gif")'}}>
+      <div className={css.lower}>This place is getting a lot of attention.</div>
+      <div className={css.lowerPrice}>It's been viewed 500+ times in the past week.</div>
+    </div>;
+    }
     const app = (
-      <div className={css.app}>
+      <div className={css.app} style={{ backgroundColor: '#030304' }} >
         <div>
           <Info
             price={this.state.price}
@@ -109,15 +136,13 @@ export default class App extends React.Component {
             stayId={this.state.stayId}
             ratings={this.state.ratings}
             getBookingData={this.getBookingData}
+            changeDateClicked={this.changeDateClicked}
           />
         </div>
 
         <div className={css.notYet}>You won’t be charged yet</div>
         <div className={css.dividingSection} />
-        <div className={css.image}>
-          <div className={css.lower}>Great price</div>
-          <div className={css.lowerPrice}>This place is $23 less than its average nightly price.</div>
-        </div>
+        {lower}
       </div>
     );
 

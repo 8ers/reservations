@@ -10,7 +10,7 @@ body {
     
 }
 .app {
-    background-color: rgb(255, 255, 255) !important;
+    background-color:rgb(255, 255, 255) !important;
     width: 366px;
     box-sizing: border-box !important;
     padding: 15px 25px 10px 25px !important;
@@ -576,9 +576,8 @@ td{
   font-weight: 600;
 }
 .image {
-  background-image: url("https://a0.muscache.com/airbnb/static/packages/icon-uc-tag.ba942714.gif");
   min-height: 34px !important;
-  width: 84% !important;
+  width: 95% !important;
   background-size: 48px !important;
   margin-top: 0px !important;
   transition: margin-top 0.4s ease 0s !important;
@@ -628,6 +627,7 @@ td{
     vertical-align: inherit;
     font-weight: 600 !important;
     padding: -10%;
+
 }
 
 .daysSelected{
